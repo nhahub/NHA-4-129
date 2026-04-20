@@ -1,0 +1,200 @@
+{
+  "total_occurrences": 5,
+  "detections": [
+    {
+      "occurrence": 1,
+      "timestamp": "2026-04-20T21:56:59.934524",
+      "fps": 6,
+      "face_count": 1,
+      "identity": {
+        "best_match": "Unknown",
+        "confidence": 0.0
+      },
+      "audio": {
+        "detected": false,
+        "level": 0.106
+      },
+      "unauthorized_objects": {
+        "detected": false,
+        "count": 0,
+        "items": []
+      },
+      "gaze": {
+        "left_eye": {
+          "direction": {
+            "horizontal": "RIGHT",
+            "vertical": "CENTER"
+          },
+          "dx": 1.0,
+          "dy": 0.048
+        },
+        "right_eye": {
+          "direction": {
+            "horizontal": "LEFT",
+            "vertical": "UP"
+          },
+          "dx": -1.0,
+          "dy": -0.565
+        },
+        "looking_away": true
+      }
+    },
+    {
+      "occurrence": 2,
+      "timestamp": "2026-04-20T21:57:05.605659",
+      "fps": 6,
+      "face_count": 1,
+      "identity": {
+        "best_match": "sherifa",
+        "confidence": 77.52
+      },
+      "audio": {
+        "detected": false,
+        "level": 0.144
+      },
+      "unauthorized_objects": {
+        "detected": false,
+        "count": 0,
+        "items": []
+      },
+      "gaze": {
+        "left_eye": {
+          "direction": {
+            "horizontal": "RIGHT",
+            "vertical": "CENTER"
+          },
+          "dx": 1.0,
+          "dy": -0.212
+        },
+        "right_eye": {
+          "direction": {
+            "horizontal": "LEFT",
+            "vertical": "UP"
+          },
+          "dx": -1.0,
+          "dy": -0.475
+        },
+        "looking_away": true
+      }
+    },
+    {
+      "occurrence": 3,
+      "timestamp": "2026-04-20T21:57:11.140043",
+      "fps": 6,
+      "face_count": 1,
+      "identity": {
+        "best_match": "sherifa",
+        "confidence": 65.27
+      },
+      "audio": {
+        "detected": false,
+        "level": 0.134
+      },
+      "unauthorized_objects": {
+        "detected": true,
+        "count": 1,
+        "items": [
+          {
+            "type": "Laptop",
+            "confidence": 0.76
+          }
+        ]
+      },
+      "gaze": {
+        "left_eye": {
+          "direction": {
+            "horizontal": "RIGHT",
+            "vertical": "CENTER"
+          },
+          "dx": 1.0,
+          "dy": -0.04
+        },
+        "right_eye": {
+          "direction": {
+            "horizontal": "LEFT",
+            "vertical": "UP"
+          },
+          "dx": -1.0,
+          "dy": -0.874
+        },
+        "looking_away": true
+      }
+    },
+    {
+      "occurrence": 4,
+      "timestamp": "2026-04-20T21:57:16.442405",
+      "fps": 6,
+      "face_count": 1,
+      "identity": {
+        "best_match": "sherifa",
+        "confidence": 65.27
+      },
+      "audio": {
+        "detected": true,
+        "level": 0.157
+      },
+      "unauthorized_objects": {
+        "detected": false,
+        "count": 0,
+        "items": []
+      },
+      "gaze": {
+        "left_eye": {
+          "direction": {
+            "horizontal": "RIGHT",
+            "vertical": "CENTER"
+          },
+          "dx": 1.0,
+          "dy": 0.117
+        },
+        "right_eye": {
+          "direction": {
+            "horizontal": "LEFT",
+            "vertical": "UP"
+          },
+          "dx": -1.0,
+          "dy": -0.537
+        },
+        "looking_away": true
+      }
+    },
+    {
+      "occurrence": 5,
+      "timestamp": "2026-04-20T21:57:21.947910",
+      "fps": 6,
+      "face_count": 1,
+      "identity": {
+        "best_match": "sherifa",
+        "confidence": 77.36
+      },
+      "audio": {
+        "detected": false,
+        "level": 0.13
+      },
+      "unauthorized_objects": {
+        "detected": false,
+        "count": 0,
+        "items": []
+      },
+      "gaze": {
+        "left_eye": {
+          "direction": {
+            "horizontal": "RIGHT",
+            "vertical": "UP"
+          },
+          "dx": 1.0,
+          "dy": -0.398
+        },
+        "right_eye": {
+          "direction": {
+            "horizontal": "LEFT",
+            "vertical": "UP"
+          },
+          "dx": -1.0,
+          "dy": -0.189
+        },
+        "looking_away": true
+      }
+    }
+  ]
+}
