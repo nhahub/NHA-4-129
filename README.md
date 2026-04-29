@@ -82,11 +82,54 @@ Models are fine-tuned on educational datasets to ensure robustness under varying
 - Streamlit or Gradio  
 - OpenCV, dlib, and other CV libraries
 
-### Installation
-```bash
-# Clone the repository
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
+##  How to Run
 
-# Install dependencies
-pip install -r requirements.txt
+### Step 1 — Register Your Face
+Train the system on your photos before starting a session. Provide 3–5 clear, well-lit photos of your face:
+
+```bash
+python proctoring_system.py register "YourName" photo1.jpg photo2.jpg photo3.jpg
+```
+
+**Example:**
+```bash
+python proctoring_system.py register "Sherifa" sherifa1.jpg sherifa2.jpg sherifa3.jpg
+```
+
+You should see: {'status': 'success', 'name': 'Sherifa'}
+
+---
+
+### Step 2 — Run the Live Proctoring System
+Start the real-time monitoring session. This opens the webcam and begins detecting faces, gaze, audio, and unauthorized objects instantly:
+
+```bash
+python proctoring_system.py
+```
+
+**Controls during the session:**
+
+| Key | Action |
+|-----|--------|
+| `s` | Save detection data + rule report now |
+| `q` | Save everything and quit |
+
+When the session ends, two files are saved automatically:
+- `proctoring_data_YYYYMMDD_HHMMSS.json` — raw detection data
+- `proctoring_data_YYYYMMDD_HHMMSS_rule_report.json` — rule engine report
+
+---
+
+### Step 3 — Evaluate a Saved Session (Offline)
+Re-run the rule engine on any previously saved session file to get a full per-occurrence breakdown:
+
+```bash
+python proctoring_system.py evaluate proctoring_data_YYYYMMDD_HHMMSS.json
+```
+
+**Example:**
+```bash
+python proctoring_system.py evaluate proctoring_data_20260429_102846.json
+```
+
+This prints a full session summary and saves an updated rule report alongside the original file.
