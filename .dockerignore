@@ -1,0 +1,32 @@
+# Python cache — never needed in container
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment — container has its own Python
+.venv/
+venv/
+env/
+
+# VS Code — editor settings not needed
+.vscode/
+
+# Secrets — never bake into image
+.env
+
+# Session output files — these belong in Azure Blob, not the image
+proctoring_data_*.json
+proctoring_data_*_rule_report.json
+proctoring_logs/
+
+# Temp uploads — ephemeral, not baked into image
+uploads/
+
+# Git history — not needed in container
+.git/
+.gitignore
+
+# Docs
+*.md
+*.pdf
+README*
