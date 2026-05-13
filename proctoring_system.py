@@ -20,13 +20,17 @@ from typing import Optional, List, Dict, Union, Tuple
 import cv2
 import mediapipe as mp
 import numpy as np
-import sounddevice as sd
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from PIL import Image
 from facenet_pytorch import InceptionResnetV1, MTCNN
 from ultralytics import YOLO
+try:
+    import sounddevice as sd
+    AUDIO_AVAILABLE = True
+except Exception:
+    AUDIO_AVAILABLE = False
 
 # ── Environment Setup ───────────────────────────────────────────────────────
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
@@ -739,13 +743,15 @@ class AudioMonitor:
         self.is_talking = vol > self.threshold
 
     def start(self):
-        """Start audio monitoring stream"""
-        try:
-            self.stream = sd.InputStream(callback=self._callback)
-            self.stream.start()
-        except Exception as e:
-            logger.warning(f"Audio monitor failed to start: {e}")
-            self.stream = None
+    if not AUDIO_AVAILABLE:
+        logger.warning("Audio monitoring disabled: sounddevice not available")
+        return
+    try:
+        self.stream = sd.InputStream(callback=self._callback)
+        self.stream.start()
+    except Exception as e:
+        logger.warning(f"Audio monitor failed to start: {e}")
+        self.stream = None
 
     def stop(self):
         """Stop audio monitoring stream"""
