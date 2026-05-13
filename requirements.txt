@@ -1,15 +1,20 @@
-# Proctoring API requirements
+# Web framework
 fastapi>=0.111.0
 uvicorn[standard]>=0.29.0
-python-multipart>=0.0.9   # for UploadFile / Form
+python-multipart>=0.0.9
 
-# ── Already required by proctoring_system.py ──────────────────────────────────
+# ML & Computer Vision
 torch>=2.0.0
 torchvision>=0.15.0
-opencv-python>=4.8.0
+opencv-python-headless>=4.8.0    # ← CHANGED: headless = no GUI = works on servers
 mediapipe>=0.10.0
 facenet-pytorch>=2.5.3
 ultralytics>=8.1.0
-sounddevice>=0.4.6
 numpy>=1.24.0
 Pillow>=10.0.0
+
+# Audio - make optional since Azure has no mic
+sounddevice>=0.4.6
+
+# Azure Storage (for persistent registry)
+azure-storage-blob>=12.19.0
