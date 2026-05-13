@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ExamGuard — Proctoring Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & Base ─────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0c10;
+  --panel:#111318;
+  --border:#1e2229;
+  --accent:#00e5a0;
+  --accent2:#00b4d8;
+  --warn:#fbbf24;
+  --danger:#ef4444;
+  --ok:#22c55e;
+  --text:#e8eaf0;
+  --muted:#6b7280;
+  --font-mono:'Space Mono',monospace;
+  --font-body:'DM Sans',sans-serif;
+  --radius:10px;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden}
+
+/* ── Layout ───────────────────────────────────────────────── */
+header{
+  display:flex;align-items:center;gap:14px;
+  padding:18px 32px;border-bottom:1px solid var(--border);
+  background:linear-gradient(90deg,#0b0c10 60%,#0f1a16);
+}
+header svg{flex-shrink:0}
+header h1{font-family:var(--font-mono);font-size:1.1rem;letter-spacing:.08em;color:var(--accent)}
+header span{font-size:.75rem;color:var(--muted);margin-left:auto;font-family:var(--font-mono)}
+
+.main{display:grid;grid-template-columns:1fr 340px;height:calc(100vh - 60px)}
+
+/* ── Left: camera + tabs ──────────────────────────────────── */
+.left{display:flex;flex-direction:column;padding:24px 28px;gap:20px;overflow-y:auto}
+.tabs{display:flex;gap:2px;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:4px}
+.tab{
+  flex:1;padding:9px 0;border:none;background:none;
+  color:var(--muted);font-family:var(--font-mono);font-size:.78rem;
+  letter-spacing:.04em;cursor:pointer;border-radius:7px;transition:.18s;
+}
+.tab.active{background:var(--accent);color:#0b0c10;font-weight:700}
+
+.panel{display:none}.panel.active{display:flex;flex-direction:column;gap:18px}
+
+/* Register panel */
+.reg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.photo-slot{
+  aspect-ratio:1;border:2px dashed var(--border);border-radius:var(--radius);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--muted);font-size:.72rem;cursor:pointer;transition:.18s;position:relative;overflow:hidden;
+  background:var(--panel);
+}
+.photo-slot:hover{border-color:var(--accent);color:var(--accent)}
+.photo-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.photo-slot .badge{
+  position:absolute;bottom:6px;right:6px;background:var(--accent);color:#0b0c10;
+  font-family:var(--font-mono);font-size:.62rem;padding:2px 6px;border-radius:4px;font-weight:700;
+}
+.input-row{display:flex;gap:10px}
+input[type=text]{
+  flex:1;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
+  padding:10px 14px;color:var(--text);font-family:var(--font-mono);font-size:.82rem;
+  outline:none;transition:.18s;
+}
+input[type=text]:focus{border-color:var(--accent)}
+input[type=text]::placeholder{color:var(--muted)}
+
+/* Exam panel */
+.cam-wrap{
+  position:relative;background:#000;border-radius:var(--radius);overflow:hidden;
+  aspect-ratio:4/3;border:1px solid var(--border);
+}
+#examVideo,#examCanvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#examCanvas{pointer-events:none}
+.cam-overlay{
+  position:absolute;top:10px;left:10px;right:10px;
+  display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none;
+}
+.id-badge{
+  background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
+  border:1px solid var(--accent);border-radius:6px;padding:5px 10px;
+  font-family:var(--font-mono);font-size:.72rem;color:var(--accent);
+}
+.status-pill{
+  font-family:var(--font-mono);font-size:.7rem;font-weight:700;
+  padding:5px 12px;border-radius:99px;letter-spacing:.06em;
+}
+.pill-ok{background:var(--ok);color:#000}
+.pill-warn{background:var(--warn);color:#000}
+.pill-flag{background:var(--danger);color:#fff;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* ── Risk bar ─────────────────────────────────────────────── */
+.risk-bar-wrap{display:flex;flex-direction:column;gap:6px}
+.risk-label{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);font-family:var(--font-mono)}
+.risk-track{height:8px;background:var(--border);border-radius:99px;overflow:hidden}
+.risk-fill{height:100%;border-radius:99px;transition:width .4s,background .4s;background:var(--ok)}
+
+/* ── Metrics grid ─────────────────────────────────────────── */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.metric{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
+  padding:12px 14px;display:flex;flex-direction:column;gap:4px;
+}
+.metric-label{font-size:.68rem;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em}
+.metric-val{font-size:1.1rem;font-weight:600;font-family:var(--font-mono)}
+.val-ok{color:var(--ok)}.val-warn{color:var(--warn)}.val-bad{color:var(--danger)}
+
+/* ── Right sidebar: log ───────────────────────────────────── */
+.right{
+  border-left:1px solid var(--border);background:var(--panel);
+  display:flex;flex-direction:column;
+}
+.right h2{padding:16px 20px;font-family:var(--font-mono);font-size:.82rem;letter-spacing:.08em;color:var(--muted);border-bottom:1px solid var(--border)}
+.log{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.log-item{
+  background:var(--bg);border:1px solid var(--border);border-radius:8px;
+  padding:9px 11px;font-size:.72rem;font-family:var(--font-mono);
+  border-left:3px solid var(--border);animation:slideIn .25s ease;
+}
+@keyframes slideIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.log-item.ok{border-left-color:var(--ok)}
+.log-item.warn{border-left-color:var(--warn)}
+.log-item.crit{border-left-color:var(--danger)}
+.log-ts{color:var(--muted);font-size:.64rem}
+.log-msg{color:var(--text);margin-top:2px;line-height:1.4}
+.log-empty{color:var(--muted);font-size:.75rem;text-align:center;margin-top:30px}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn{
+  padding:10px 22px;border:none;border-radius:var(--radius);
+  font-family:var(--font-mono);font-size:.8rem;font-weight:700;
+  letter-spacing:.05em;cursor:pointer;transition:.18s;
+}
+.btn-primary{background:var(--accent);color:#0b0c10}
+.btn-primary:hover{background:#00ffb2}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{background:#f87171}
+.btn-outline{background:none;border:1px solid var(--border);color:var(--muted)}
+.btn-outline:hover{border-color:var(--accent2);color:var(--accent2)}
+
+.row{display:flex;gap:10px;align-items:center}
+
+/* ── Toast ────────────────────────────────────────────────── */
+#toast{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:#1a1d25;border:1px solid var(--border);border-radius:99px;
+  padding:10px 22px;font-family:var(--font-mono);font-size:.78rem;
+  opacity:0;transition:.3s;pointer-events:none;z-index:999;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.t-ok{border-color:var(--ok);color:var(--ok)}
+#toast.t-err{border-color:var(--danger);color:var(--danger)}
+
+/* ── Student select ───────────────────────────────────────── */
+select{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
+  padding:10px 14px;color:var(--text);font-family:var(--font-mono);font-size:.82rem;
+  outline:none;flex:1;cursor:pointer;
+}
+select:focus{border-color:var(--accent)}
+
+.final-report{
+  background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px;font-family:var(--font-mono);font-size:.78rem;display:none;
+}
+.final-report .rep-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)}
+.final-report .rep-row:last-child{border:none}
+.verdict-clean{color:var(--ok);font-weight:700}
+.verdict-sus{color:var(--danger);font-weight:700}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header>
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <rect x="3" y="3" width="22" height="22" rx="4" stroke="#00e5a0" stroke-width="1.5"/>
+    <circle cx="14" cy="11" r="4" stroke="#00e5a0" stroke-width="1.5"/>
+    <path d="M7 22c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#00e5a0" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+  <h1>EXAMGUARD</h1>
+  <span id="healthBadge">● connecting…</span>
+</header>
+
+<div class="main">
+  <!-- Left column -->
+  <div class="left">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('register')">① REGISTER</button>
+      <button class="tab" onclick="switchTab('exam')">② EXAM SESSION</button>
+    </div>
+
+    <!-- ── REGISTER PANEL ── -->
+    <div class="panel active" id="panelRegister">
+      <div class="input-row">
+        <input type="text" id="regName" placeholder="Student full name"/>
+      </div>
+
+      <p style="font-size:.78rem;color:var(--muted)">
+        Capture <strong style="color:var(--text)">3 photos</strong> from your webcam — different angles work best.
+        Click a slot to capture.
+      </p>
+
+      <!-- Live preview for capture -->
+      <div style="position:relative;aspect-ratio:4/3;background:#000;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)">
+        <video id="regVideo" autoplay muted playsinline style="width:100%;height:100%;object-fit:cover"></video>
+        <canvas id="regCanvas" style="display:none"></canvas>
+      </div>
+
+      <div class="reg-grid" id="photoSlots">
+        <div class="photo-slot" onclick="capturePhoto(0)"><span>📷</span><span>Click to capture</span></div>
+        <div class="photo-slot" onclick="capturePhoto(1)"><span>📷</span><span>Click to capture</span></div>
+        <div class="photo-slot" onclick="capturePhoto(2)"><span>📷</span><span>Click to capture</span></div>
+      </div>
+
+      <div class="row">
+        <button class="btn btn-outline" onclick="clearPhotos()">Clear</button>
+        <button class="btn btn-primary" id="btnRegister" onclick="registerStudent()">Register Student</button>
+      </div>
+    </div>
+
+    <!-- ── EXAM PANEL ── -->
+    <div class="panel" id="panelExam">
+      <div class="row">
+        <select id="studentSelect"><option value="">— select student —</option></select>
+        <button class="btn btn-primary" id="btnStartExam" onclick="startExam()">Start Exam</button>
+        <button class="btn btn-danger" id="btnEndExam" onclick="endExam()" style="display:none">End</button>
+      </div>
+
+      <div class="cam-wrap">
+        <video id="examVideo" autoplay muted playsinline></video>
+        <canvas id="examCanvas"></canvas>
+        <div class="cam-overlay">
+          <div class="id-badge" id="idBadge">— not started —</div>
+          <div class="status-pill pill-ok" id="statusPill">IDLE</div>
+        </div>
+      </div>
+
+      <div class="risk-bar-wrap">
+        <div class="risk-label">
+          <span>VIOLATION SCORE</span>
+          <span id="riskLabel">0 / 10</span>
+        </div>
+        <div class="risk-track"><div class="risk-fill" id="riskFill" style="width:0%"></div></div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-label">Identity</div>
+          <div class="metric-val val-ok" id="mIdent">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Confidence</div>
+          <div class="metric-val" id="mConf">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Gaze</div>
+          <div class="metric-val val-ok" id="mGaze">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Faces</div>
+          <div class="metric-val" id="mFaces">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Alerts</div>
+          <div class="metric-val" id="mAlerts">0</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Frames</div>
+          <div class="metric-val" id="mFrames">0</div>
+        </div>
+      </div>
+
+      <!-- Final report -->
+      <div class="final-report" id="finalReport">
+        <div class="rep-row"><span>Student</span><span id="repStudent">—</span></div>
+        <div class="rep-row"><span>Frames analyzed</span><span id="repFrames">—</span></div>
+        <div class="rep-row"><span>Total alerts</span><span id="repAlerts">—</span></div>
+        <div class="rep-row"><span>Violation score</span><span id="repScore">—</span></div>
+        <div class="rep-row"><span>VERDICT</span><span id="repVerdict">—</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right sidebar: alert log -->
+  <div class="right">
+    <h2>ALERT LOG</h2>
+    <div class="log" id="alertLog">
+      <p class="log-empty">No alerts yet.</p>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const API = '';   // same origin
+let capturedPhotos = [];
+let examSessionId  = null;
+let analyzeInterval = null;
+let totalAlerts    = 0;
+let regStream      = null;
+let examStream     = null;
+
+// ── Boot ──────────────────────────────────────────────────────────────────────
+(async () => {
+  await startRegCam();
+  await refreshHealth();
+  await loadStudents();
+})();
+
+async function refreshHealth() {
+  try {
+    const r = await fetch(`${API}/health`);
+    const d = await r.json();
+    const el = document.getElementById('healthBadge');
+    el.textContent = `● ${d.registered_students} students | ${d.active_sessions} sessions`;
+    el.style.color = '#00e5a0';
+  } catch {
+    document.getElementById('healthBadge').textContent = '● API offline';
+  }
+}
+
+async function loadStudents() {
+  try {
+    const r = await fetch(`${API}/registry`);
+    const d = await r.json();
+    const sel = document.getElementById('studentSelect');
+    sel.innerHTML = '<option value="">— select student —</option>';
+    d.students.forEach(s => {
+      const o = document.createElement('option');
+      o.value = o.textContent = s;
+      sel.appendChild(o);
+    });
+  } catch {}
+}
+
+// ── Tab switch ────────────────────────────────────────────────────────────────
+// ── Tab switch ────────────────────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    t.classList.toggle('active', (i===0) === (name==='register'));
+  });
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(name==='register'?'panelRegister':'panelExam').classList.add('active');
+  if (name === 'register') startRegCam();
+  else stopRegCam();
+}
+
+// ── Register camera ────────────────────────────────────────────────────────────
+async function startRegCam() {
+  if (regStream) return;
+  try {
+    regStream = await navigator.mediaDevices.getUserMedia({video:{width:640,height:480}});
+    document.getElementById('regVideo').srcObject = regStream;
+  } catch { toast('Camera access denied','err'); }
+}
+function stopRegCam() {
+  if (!regStream) return;
+  regStream.getTracks().forEach(t=>t.stop());
+  regStream = null;
+}
+
+function capturePhoto(slot) {
+  const video  = document.getElementById('regVideo');
+  const canvas = document.getElementById('regCanvas');
+  canvas.width  = video.videoWidth  || 640;
+  canvas.height = video.videoHeight || 480;
+  canvas.getContext('2d').drawImage(video,0,0);
+  const dataUrl = canvas.toDataURL('image/jpeg', .92);
+  capturedPhotos[slot] = dataUrl;
+
+  const slots = document.querySelectorAll('.photo-slot');
+  slots[slot].innerHTML = `<img src="${dataUrl}"/><span class="badge">✓ ${slot+1}</span>`;
+}
+
+function clearPhotos() {
+  capturedPhotos = [];
+  const slots = document.querySelectorAll('.photo-slot');
+  slots.forEach((s,i) => { s.innerHTML=`<span>📷</span><span>Click to capture</span>`; });
+}
+
+async function registerStudent() {
+  const name   = document.getElementById('regName').value.trim();
+  const photos = capturedPhotos.filter(Boolean);
+  if (!name)          return toast('Enter a student name','err');
+  if (!photos.length) return toast('Capture at least 1 photo','err');
+
+  document.getElementById('btnRegister').disabled = true;
+  try {
+    const r = await fetch(`${API}/register/base64`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name, photos}),
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.detail||'Registration failed');
+    toast(d.message,'ok');
+    clearPhotos();
+    document.getElementById('regName').value='';
+    await loadStudents();
+    await refreshHealth();
+  } catch(e) { toast(e.message,'err'); }
+  finally { document.getElementById('btnRegister').disabled = false; }
+}
+
+// ── Exam session ────────────────────────────────────────────────────────────────
+async function startExam() {
+  const student = document.getElementById('studentSelect').value;
+  if (!student) return toast('Select a student first','err');
+
+  // Start webcam
+  try {
+    examStream = await navigator.mediaDevices.getUserMedia({video:{width:640,height:480}});
+    document.getElementById('examVideo').srcObject = examStream;
+  } catch { return toast('Camera access denied','err'); }
+
+  // Start session
+  const r = await fetch(`${API}/session/start`,{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({student_name:student}),
+  });
+  const d = await r.json();
+  if (!r.ok) { toast(d.detail,'err'); return; }
+
+  examSessionId = d.session_id;
+  totalAlerts = 0;
+  document.getElementById('alertLog').innerHTML = '';
+  document.getElementById('finalReport').style.display='none';
+  document.getElementById('btnStartExam').style.display='none';
+  document.getElementById('btnEndExam').style.display='';
+  document.getElementById('studentSelect').disabled = true;
+  document.getElementById('idBadge').textContent = `🎓 ${student}`;
+  setStatus('ok');
+  toast('Exam session started','ok');
+
+  // Start periodic analysis (every 2 s)
+  analyzeInterval = setInterval(sendFrame, 2000);
+}
+
+async function endExam() {
+  clearInterval(analyzeInterval);
+  analyzeInterval = null;
+
+  if (examStream) { examStream.getTracks().forEach(t=>t.stop()); examStream=null; }
+
+  if (!examSessionId) return;
+  const r = await fetch(`${API}/session/end`,{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({session_id:examSessionId}),
+  });
+  const d = await r.json();
+  examSessionId = null;
+
+  // Show final report
+  const rep = document.getElementById('finalReport');
+  rep.style.display='block';
+  document.getElementById('repStudent').textContent = d.student_name;
+  document.getElementById('repFrames').textContent  = d.frames_analyzed;
+  document.getElementById('repAlerts').textContent  = d.total_alerts;
+  document.getElementById('repScore').textContent   = d.violation_score;
+  const vEl = document.getElementById('repVerdict');
+  vEl.textContent = d.verdict;
+  vEl.className   = d.verdict==='CLEAN'?'verdict-clean':'verdict-sus';
+
+  document.getElementById('btnStartExam').style.display='';
+  document.getElementById('btnEndExam').style.display='none';
+  document.getElementById('studentSelect').disabled=false;
+  setStatus('ok');
+  document.getElementById('idBadge').textContent='— session ended —';
+  toast('Session ended','ok');
+  await refreshHealth();
+}
+
+async function sendFrame() {
+  if (!examSessionId) return;
+  const video  = document.getElementById('examVideo');
+  const canvas = document.getElementById('examCanvas');
+
+  canvas.width  = video.videoWidth  || 640;
+  canvas.height = video.videoHeight || 480;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video,0,0);
+  const b64 = canvas.toDataURL('image/jpeg',.85);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  try {
+    const r = await fetch(`${API}/session/analyze`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({session_id:examSessionId, frame_b64:b64}),
+    });
+    const d = await r.json();
+    if (!r.ok) return;
+    updateUI(d);
+  } catch {}
+}
+
+function updateUI(d) {
+  // Metrics
+  const ident = d.identity;
+  const isCorrect = d.is_correct_person;
+
+  document.getElementById('mIdent').textContent  = ident.best_match;
+  document.getElementById('mIdent').className    = `metric-val ${isCorrect?'val-ok':'val-bad'}`;
+  document.getElementById('mConf').textContent   = `${ident.confidence.toFixed(1)}%`;
+  document.getElementById('mConf').className     = `metric-val ${ident.confidence>=45?'val-ok':'val-bad'}`;
+  document.getElementById('mGaze').textContent   = d.gaze.looking_away ? 'AWAY ↗' : 'SCREEN ✓';
+  document.getElementById('mGaze').className     = `metric-val ${d.gaze.looking_away?'val-warn':'val-ok'}`;
+  document.getElementById('mFaces').textContent  = d.face_count;
+  document.getElementById('mFaces').className    = `metric-val ${d.face_count===1?'val-ok':d.face_count===0?'val-warn':'val-bad'}`;
+  totalAlerts += (d.alerts_this_frame||[]).length;
+  document.getElementById('mAlerts').textContent = totalAlerts;
+  document.getElementById('mAlerts').className   = `metric-val ${totalAlerts===0?'val-ok':totalAlerts<3?'val-warn':'val-bad'}`;
+  document.getElementById('mFrames').textContent = d.frame;
+
+  // Risk bar
+  const score = d.violation_score;
+  const pct   = Math.min(score/10*100,100);
+  const fill  = document.getElementById('riskFill');
+  fill.style.width = pct+'%';
+  fill.style.background = score<5?'var(--ok)':score<10?'var(--warn)':'var(--danger)';
+  document.getElementById('riskLabel').textContent = `${score} / 10`;
+
+  // Status pill
+  setStatus(d.status);
+
+  // Identity badge
+  document.getElementById('idBadge').textContent =
+    `🎓 ${ident.best_match} — ${ident.confidence.toFixed(1)}%`;
+
+  // Alerts
+  (d.alerts_this_frame||[]).forEach(a => addLog(a));
+}
+
+function setStatus(s) {
+  const pill = document.getElementById('statusPill');
+  if (s==='ok')      { pill.textContent='✓ OK';       pill.className='status-pill pill-ok'; }
+  else if(s==='warning'){ pill.textContent='⚠ WARNING'; pill.className='status-pill pill-warn'; }
+  else if(s==='flagged'){ pill.textContent='✗ FLAGGED'; pill.className='status-pill pill-flag'; }
+  else                { pill.textContent='IDLE';       pill.className='status-pill pill-ok'; }
+}
+
+function addLog(alert) {
+  const log  = document.getElementById('alertLog');
+  const emp  = log.querySelector('.log-empty');
+  if (emp) emp.remove();
+
+  const cls  = alert.severity==='CRITICAL'?'crit':'warn';
+  const time = new Date().toLocaleTimeString();
+  const el   = document.createElement('div');
+  el.className = `log-item ${cls}`;
+  el.innerHTML = `
+    <div class="log-ts">${time} · ${alert.severity}</div>
+    <div class="log-msg">[${alert.rule}] ${alert.message}</div>
+  `;
+  log.prepend(el);
+  // keep max 50 items
+  while(log.children.length>50) log.removeChild(log.lastChild);
+}
+
+function toast(msg, type='ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className   = `show t-${type}`;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.className='', 3000);
+}
+</script>
+</body>
+</html>
