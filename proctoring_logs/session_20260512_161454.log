@@ -1,0 +1,23 @@
+2026-05-12 16:14:55,409 | INFO     | 🚀 Exam Proctoring API started
+2026-05-12 16:14:55,409 | INFO     | 👥 Registered students: 1
+2026-05-12 16:14:55,409 | INFO     | 📁 Registry path: face_registry.json
+2026-05-12 16:15:19,751 | INFO     | ✓ Registered: Karim Nabil (3 photos)
+2026-05-12 16:15:19,751 | INFO     | Registered student 'Karim Nabil' via base64 with 3 photos
+2026-05-12 16:15:26,607 | INFO     | RuleEngine started | student=Karim Nabil | suspicious_limit=10
+2026-05-12 16:15:26,723 | INFO     | Session started: ac0a0fa7-15d8-4952-8897-9d65e5595522 for student Karim Nabil
+2026-05-12 16:15:33,037 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=2) | Sustained gaze away from screen: 2 consecutive occurrences (approx. 10 s).
+2026-05-12 16:15:35,066 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=4) | Sustained gaze away from screen: 3 consecutive occurrences (approx. 15 s).
+2026-05-12 16:15:37,295 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=6) | Sustained gaze away from screen: 4 consecutive occurrences (approx. 20 s).
+2026-05-12 16:15:39,167 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=8) | Sustained gaze away from screen: 5 consecutive occurrences (approx. 25 s).
+2026-05-12 16:15:41,084 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=10) | Sustained gaze away from screen: 6 consecutive occurrences (approx. 30 s).
+2026-05-12 16:15:41,084 | CRITICAL | *** EXAM FLAGGED AS SUSPICIOUS *** | student=Karim Nabil | score=10 >= limit=10
+2026-05-12 16:15:43,102 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=12) | Sustained gaze away from screen: 7 consecutive occurrences (approx. 35 s).
+2026-05-12 16:15:44,997 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=14) | Sustained gaze away from screen: 8 consecutive occurrences (approx. 40 s).
+2026-05-12 16:15:47,087 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=16) | Sustained gaze away from screen: 9 consecutive occurrences (approx. 45 s).
+2026-05-12 16:15:49,143 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=18) | Sustained gaze away from screen: 10 consecutive occurrences (approx. 50 s).
+2026-05-12 16:15:51,517 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=20) | Sustained gaze away from screen: 11 consecutive occurrences (approx. 55 s).
+2026-05-12 16:15:53,308 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=22) | Sustained gaze away from screen: 12 consecutive occurrences (approx. 60 s).
+2026-05-12 16:15:53,316 | INFO     | Session ended | {'student_id': 'Karim Nabil', 'total_alerts': 11, 'violation_score': 22, 'exam_flagged': True, 'breakdown': {'gaze_away': 11}}
+2026-05-12 16:15:53,352 | INFO     | Session ended: ac0a0fa7-15d8-4952-8897-9d65e5595522 - Verdict: SUSPICIOUS
+2026-05-12 16:21:23,428 | INFO     | Shutting down API...
+2026-05-12 16:21:23,438 | INFO     | API shutdown complete
