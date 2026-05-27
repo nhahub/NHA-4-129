@@ -1,5 +1,0 @@
-2026-05-27 13:50:03,421 | INFO     | 🚀 Exam Proctoring API started
-2026-05-27 13:50:03,421 | INFO     | 👥 Registered students: 3
-2026-05-27 13:50:03,421 | INFO     | 📁 Registry path: face_registry.json
-2026-05-27 13:53:03,421 | INFO     | Shutting down API...
-2026-05-27 13:53:03,421 | INFO     | API shutdown complete
