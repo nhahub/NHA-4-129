@@ -1,0 +1,13 @@
+{
+  "student_id": "sherifa",
+  "session_file": "proctoring_data_20260429_102846.json",
+  "total_occurrences": 5,
+  "total_alerts": 6,
+  "violation_score": 14,
+  "exam_flagged": true,
+  "alert_breakdown": {
+    "low_identity_confidence": 1,
+    "gaze_away": 4,
+    "suspicious_audio": 1
+  }
+}

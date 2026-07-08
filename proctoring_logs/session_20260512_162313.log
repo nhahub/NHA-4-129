@@ -1,0 +1,89 @@
+2026-05-12 16:23:15,054 | INFO     | 🚀 Exam Proctoring API started
+2026-05-12 16:23:15,062 | INFO     | 👥 Registered students: 2
+2026-05-12 16:23:15,084 | INFO     | 📁 Registry path: face_registry.json
+2026-05-12 16:23:44,588 | INFO     | ✓ Registered: Karim (3 photos)
+2026-05-12 16:23:44,590 | INFO     | Registered student 'Karim' via base64 with 3 photos
+2026-05-12 16:23:53,156 | INFO     | RuleEngine started | student=Karim | suspicious_limit=10
+2026-05-12 16:23:53,296 | INFO     | Session started: df4acdd4-445e-41fc-a1a7-0fb9d1678a2f for student Karim
+2026-05-12 16:24:00,519 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=2) | Sustained gaze away from screen: 2 consecutive occurrences (approx. 10 s).
+2026-05-12 16:24:02,394 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=4) | Sustained gaze away from screen: 3 consecutive occurrences (approx. 15 s).
+2026-05-12 16:24:04,212 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=6) | Sustained gaze away from screen: 4 consecutive occurrences (approx. 20 s).
+2026-05-12 16:24:06,403 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=8) | Sustained gaze away from screen: 5 consecutive occurrences (approx. 25 s).
+2026-05-12 16:24:08,035 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=10) | Sustained gaze away from screen: 6 consecutive occurrences (approx. 30 s).
+2026-05-12 16:24:08,035 | CRITICAL | *** EXAM FLAGGED AS SUSPICIOUS *** | student=Karim | score=10 >= limit=10
+2026-05-12 16:24:10,333 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=12) | Sustained gaze away from screen: 7 consecutive occurrences (approx. 35 s).
+2026-05-12 16:24:11,959 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=14) | Sustained gaze away from screen: 8 consecutive occurrences (approx. 40 s).
+2026-05-12 16:24:14,364 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=16) | Sustained gaze away from screen: 9 consecutive occurrences (approx. 45 s).
+2026-05-12 16:24:16,044 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=18) | Sustained gaze away from screen: 10 consecutive occurrences (approx. 50 s).
+2026-05-12 16:24:17,855 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=20) | Sustained gaze away from screen: 11 consecutive occurrences (approx. 55 s).
+2026-05-12 16:24:20,032 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=22) | Sustained gaze away from screen: 12 consecutive occurrences (approx. 60 s).
+2026-05-12 16:24:22,691 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=24) | Sustained gaze away from screen: 13 consecutive occurrences (approx. 65 s).
+2026-05-12 16:24:24,095 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=26) | Sustained gaze away from screen: 14 consecutive occurrences (approx. 70 s).
+2026-05-12 16:24:26,006 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=28) | Sustained gaze away from screen: 15 consecutive occurrences (approx. 75 s).
+2026-05-12 16:24:28,034 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=30) | Sustained gaze away from screen: 16 consecutive occurrences (approx. 80 s).
+2026-05-12 16:24:30,564 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=32) | Sustained gaze away from screen: 17 consecutive occurrences (approx. 85 s).
+2026-05-12 16:24:32,435 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=34) | Sustained gaze away from screen: 18 consecutive occurrences (approx. 90 s).
+2026-05-12 16:24:33,943 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=36) | Sustained gaze away from screen: 19 consecutive occurrences (approx. 95 s).
+2026-05-12 16:24:36,260 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=38) | Sustained gaze away from screen: 20 consecutive occurrences (approx. 100 s).
+2026-05-12 16:24:38,191 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=40) | Sustained gaze away from screen: 21 consecutive occurrences (approx. 105 s).
+2026-05-12 16:24:39,948 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=42) | Sustained gaze away from screen: 22 consecutive occurrences (approx. 110 s).
+2026-05-12 16:24:42,022 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=44) | Sustained gaze away from screen: 23 consecutive occurrences (approx. 115 s).
+2026-05-12 16:24:44,009 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=46) | Sustained gaze away from screen: 24 consecutive occurrences (approx. 120 s).
+2026-05-12 16:24:46,551 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=48) | Sustained gaze away from screen: 25 consecutive occurrences (approx. 125 s).
+2026-05-12 16:24:47,889 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=50) | Sustained gaze away from screen: 26 consecutive occurrences (approx. 130 s).
+2026-05-12 16:24:50,457 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=52) | Sustained gaze away from screen: 27 consecutive occurrences (approx. 135 s).
+2026-05-12 16:24:51,999 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=54) | Sustained gaze away from screen: 28 consecutive occurrences (approx. 140 s).
+2026-05-12 16:24:54,557 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=56) | Sustained gaze away from screen: 29 consecutive occurrences (approx. 145 s).
+2026-05-12 16:24:55,696 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=58) | Sustained gaze away from screen: 30 consecutive occurrences (approx. 150 s).
+2026-05-12 16:24:58,273 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=60) | Sustained gaze away from screen: 31 consecutive occurrences (approx. 155 s).
+2026-05-12 16:24:59,980 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=62) | Sustained gaze away from screen: 32 consecutive occurrences (approx. 160 s).
+2026-05-12 16:25:02,290 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=64) | Sustained gaze away from screen: 33 consecutive occurrences (approx. 165 s).
+2026-05-12 16:25:04,116 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=66) | Sustained gaze away from screen: 34 consecutive occurrences (approx. 170 s).
+2026-05-12 16:25:06,897 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=68) | Sustained gaze away from screen: 35 consecutive occurrences (approx. 175 s).
+2026-05-12 16:25:08,303 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=70) | Sustained gaze away from screen: 36 consecutive occurrences (approx. 180 s).
+2026-05-12 16:25:10,025 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=72) | Sustained gaze away from screen: 37 consecutive occurrences (approx. 185 s).
+2026-05-12 16:25:12,012 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=74) | Sustained gaze away from screen: 38 consecutive occurrences (approx. 190 s).
+2026-05-12 16:25:14,348 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=76) | Sustained gaze away from screen: 39 consecutive occurrences (approx. 195 s).
+2026-05-12 16:25:16,734 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=78) | Sustained gaze away from screen: 40 consecutive occurrences (approx. 200 s).
+2026-05-12 16:25:18,301 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=80) | Sustained gaze away from screen: 41 consecutive occurrences (approx. 205 s).
+2026-05-12 16:25:20,062 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=82) | Sustained gaze away from screen: 42 consecutive occurrences (approx. 210 s).
+2026-05-12 16:25:22,163 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=84) | Sustained gaze away from screen: 43 consecutive occurrences (approx. 215 s).
+2026-05-12 16:25:24,505 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=86) | Sustained gaze away from screen: 44 consecutive occurrences (approx. 220 s).
+2026-05-12 16:25:26,586 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=88) | Sustained gaze away from screen: 45 consecutive occurrences (approx. 225 s).
+2026-05-12 16:25:29,059 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=90) | Sustained gaze away from screen: 46 consecutive occurrences (approx. 230 s).
+2026-05-12 16:25:31,506 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=92) | Sustained gaze away from screen: 47 consecutive occurrences (approx. 235 s).
+2026-05-12 16:25:32,837 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=94) | Sustained gaze away from screen: 48 consecutive occurrences (approx. 240 s).
+2026-05-12 16:25:34,537 | WARNING  | [GAZE_AWAY] student=Karim | +2pts (total=96) | Sustained gaze away from screen: 49 consecutive occurrences (approx. 245 s).
+2026-05-12 16:25:34,558 | INFO     | Session ended | {'student_id': 'Karim', 'total_alerts': 48, 'violation_score': 96, 'exam_flagged': True, 'breakdown': {'gaze_away': 48}}
+2026-05-12 16:25:34,662 | INFO     | Session ended: df4acdd4-445e-41fc-a1a7-0fb9d1678a2f - Verdict: SUSPICIOUS
+2026-05-12 16:27:52,394 | INFO     | RuleEngine started | student=Karim Nabil | suspicious_limit=10
+2026-05-12 16:27:52,441 | INFO     | Session started: 73506ab3-78dd-42bf-ac99-bde279ae349c for student Karim Nabil
+2026-05-12 16:27:58,971 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=2) | Sustained gaze away from screen: 2 consecutive occurrences (approx. 10 s).
+2026-05-12 16:28:01,283 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=4) | Sustained gaze away from screen: 3 consecutive occurrences (approx. 15 s).
+2026-05-12 16:28:04,986 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=6) | Sustained gaze away from screen: 4 consecutive occurrences (approx. 20 s).
+2026-05-12 16:28:06,069 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=8) | Sustained gaze away from screen: 5 consecutive occurrences (approx. 25 s).
+2026-05-12 16:28:07,718 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=10) | Sustained gaze away from screen: 6 consecutive occurrences (approx. 30 s).
+2026-05-12 16:28:07,723 | CRITICAL | *** EXAM FLAGGED AS SUSPICIOUS *** | student=Karim Nabil | score=10 >= limit=10
+2026-05-12 16:28:09,238 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=12) | Sustained gaze away from screen: 7 consecutive occurrences (approx. 35 s).
+2026-05-12 16:28:11,508 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=14) | Sustained gaze away from screen: 8 consecutive occurrences (approx. 40 s).
+2026-05-12 16:28:13,203 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=16) | Sustained gaze away from screen: 9 consecutive occurrences (approx. 45 s).
+2026-05-12 16:28:15,655 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=18) | Sustained gaze away from screen: 10 consecutive occurrences (approx. 50 s).
+2026-05-12 16:28:17,406 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=20) | Sustained gaze away from screen: 11 consecutive occurrences (approx. 55 s).
+2026-05-12 16:28:19,433 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=22) | Sustained gaze away from screen: 12 consecutive occurrences (approx. 60 s).
+2026-05-12 16:28:22,089 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=24) | Sustained gaze away from screen: 13 consecutive occurrences (approx. 65 s).
+2026-05-12 16:28:24,413 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=26) | Sustained gaze away from screen: 14 consecutive occurrences (approx. 70 s).
+2026-05-12 16:28:27,469 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=28) | Sustained gaze away from screen: 15 consecutive occurrences (approx. 75 s).
+2026-05-12 16:28:34,421 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=30) | Sustained gaze away from screen: 16 consecutive occurrences (approx. 80 s).
+2026-05-12 16:28:39,443 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=32) | Sustained gaze away from screen: 17 consecutive occurrences (approx. 85 s).
+2026-05-12 16:28:44,298 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=34) | Sustained gaze away from screen: 18 consecutive occurrences (approx. 90 s).
+2026-05-12 16:28:45,728 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=36) | Sustained gaze away from screen: 19 consecutive occurrences (approx. 95 s).
+2026-05-12 16:28:47,971 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=38) | Sustained gaze away from screen: 20 consecutive occurrences (approx. 100 s).
+2026-05-12 16:28:52,350 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=40) | Sustained gaze away from screen: 21 consecutive occurrences (approx. 105 s).
+2026-05-12 16:28:55,726 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=42) | Sustained gaze away from screen: 22 consecutive occurrences (approx. 110 s).
+2026-05-12 16:28:58,193 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=44) | Sustained gaze away from screen: 23 consecutive occurrences (approx. 115 s).
+2026-05-12 16:29:01,051 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=46) | Sustained gaze away from screen: 24 consecutive occurrences (approx. 120 s).
+2026-05-12 16:29:03,623 | WARNING  | [GAZE_AWAY] student=Karim Nabil | +2pts (total=48) | Sustained gaze away from screen: 25 consecutive occurrences (approx. 125 s).
+2026-05-12 16:29:03,628 | INFO     | Session ended | {'student_id': 'Karim Nabil', 'total_alerts': 24, 'violation_score': 48, 'exam_flagged': True, 'breakdown': {'gaze_away': 24}}
+2026-05-12 16:29:03,644 | INFO     | Session ended: 73506ab3-78dd-42bf-ac99-bde279ae349c - Verdict: SUSPICIOUS
+2026-05-12 16:29:05,952 | INFO     | Shutting down API...
+2026-05-12 16:29:05,954 | INFO     | API shutdown complete
